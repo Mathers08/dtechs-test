@@ -1,6 +1,4 @@
-export interface IRole {
-  role: 'ANT' | 'ANT_MANAGER' | 'ANT_OFFICER' | 'DEVELOPER'
-}
+export type TRole = 'ANT' | 'ANT_MANAGER' | 'ANT_OFFICER' | 'DEVELOPER';
 
 export interface IWorkBorders {
   id: string;
@@ -12,6 +10,6 @@ export interface IUser {
   password: string;
   firstName: string;
   lastName: string;
-  roles: IRole;
-  workBorders: IWorkBorders;
+  roles: TRole[];
+  workBorders: IWorkBorders[];
 }

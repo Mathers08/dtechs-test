@@ -27,3 +27,17 @@ img, svg {
   width: 35px;
   height: 35px;
 }
+
+.outline-btn {
+  background-color: $bg-color;
+  color: $white;
+  border: 2px $white solid;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: .2s all ease-in;
+
+  &:hover {
+    background-color: $white;
+    color: $bg-color;
+  }
+}

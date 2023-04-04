@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.scss'
 import { UserCard } from "../component";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -12,8 +13,10 @@ const Home = () => {
         <UserCard/>
         <UserCard/>
         <UserCard/>
-
       </div>
+      <Link to='/add-user'>
+        <button className='outline-btn'>Добавить пользователя</button>
+      </Link>
     </div>
   );
 };

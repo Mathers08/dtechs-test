@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import './index.scss';
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import { IUser } from "../types";
-import MultiSelect from "../component/Select";
+import { IUser } from "../redux/users/types";
+import { MultiSelect } from "../component";
+import { useAppDispatch } from "../hooks";
+import { addUser } from "../redux/users/slice";
 
 const AddUser = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const optionList = [
     { value: "ANT", label: "ANT" },
     { value: "ANT_MANAGER", label: "ANT_MANAGER" },
@@ -18,6 +22,15 @@ const AddUser = () => {
     { label: '3', value: 'Урус-Мартан' }
   ];
 
+  const onUserSubmit = (values: IUser, { setSubmitting }: FormikHelpers<IUser>) => {
+    setTimeout(() => {
+      console.log(values);
+      dispatch(addUser(values));
+      navigate('/');
+      setSubmitting(false);
+    }, 500);
+  };
+
   return (
     <div className="wrapper">
       <h1>Добавление пользователя</h1>
@@ -26,6 +39,7 @@ const AddUser = () => {
       </Link>
       <Formik
         initialValues={{
+          id: Math.random().toString(),
           username: '',
           password: '',
           firstName: '',
@@ -33,13 +47,7 @@ const AddUser = () => {
           roles: ['ANT'],
           workBorders: []
         }}
-        onSubmit={(values: IUser, { setSubmitting }: FormikHelpers<IUser>) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 500);
-        }}
-      >
+        onSubmit={onUserSubmit}>
         <Form className="user-form">
           <Field id="username" name="username" placeholder="username"/>
           <Field id="password" name="password" placeholder="password"/>

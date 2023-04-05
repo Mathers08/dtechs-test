@@ -23,11 +23,12 @@ h1 {
   color: $white;
 }
 
-img, svg {
+svg {
   width: 35px;
   height: 35px;
 }
 
+/*
 .btn {
   background-color: $white;
   color: $bg-color;
@@ -35,6 +36,7 @@ img, svg {
   padding: 10px 20px;
   border-radius: 20px;
 }
+*/
 
 .outline-btn {
   background-color: $bg-color;

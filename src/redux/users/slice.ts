@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser, UserState } from "./types";
+import { IUser, RoleEnum, UserState } from "./types";
 
 const initialState: UserState = {
   users: [{
@@ -8,7 +8,7 @@ const initialState: UserState = {
     password: "admin",
     firstName: "Black",
     lastName: "Mathers",
-    roles: ["ANT"],
+    roles: [RoleEnum.ANT],
     workBorders: []
   }]
 };

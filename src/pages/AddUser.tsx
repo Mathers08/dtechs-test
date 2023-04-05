@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import './index.scss';
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import { IUser } from "../redux/users/types";
+import { IUser, RoleEnum, WorkBordersEnum } from "../redux/users/types";
 import { MultiSelect } from "../component";
 import { useAppDispatch } from "../hooks";
 import { addUser } from "../redux/users/slice";
@@ -11,15 +11,15 @@ const AddUser = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const optionList = [
-    { value: "ANT", label: "ANT" },
-    { value: "ANT_MANAGER", label: "ANT_MANAGER" },
-    { value: "ANT_OFFICER", label: "ANT_OFFICER" },
-    { value: "DEVELOPER", label: "DEVELOPER" }
+    { value: RoleEnum.ANT, label: RoleEnum.ANT },
+    { value: RoleEnum.ANT_MANAGER, label: RoleEnum.ANT_MANAGER },
+    { value: RoleEnum.ANT_OFFICER, label: RoleEnum.ANT_OFFICER },
+    { value: RoleEnum.DEVELOPER, label: RoleEnum.DEVELOPER }
   ];
   const workBordersList = [
-    { label: '1', value: 'Белгатой' },
-    { label: '2', value: 'Шали' },
-    { label: '3', value: 'Урус-Мартан' }
+    { value: { id: '1', name: WorkBordersEnum.BEGLATOY }, label: WorkBordersEnum.BEGLATOY },
+    { value: { id: '2', name: WorkBordersEnum.SHALY }, label: WorkBordersEnum.SHALY },
+    { value: { id: '3', name: WorkBordersEnum.URUS_MARTAN }, label: WorkBordersEnum.URUS_MARTAN }
   ];
 
   const onUserSubmit = (values: IUser, { setSubmitting }: FormikHelpers<IUser>) => {
@@ -44,8 +44,8 @@ const AddUser = () => {
           password: '',
           firstName: '',
           lastName: '',
-          roles: ['ANT'],
-          workBorders: []
+          roles: [RoleEnum.ANT],
+          workBorders: [{ id: '1', name: WorkBordersEnum.BEGLATOY }]
         }}
         onSubmit={onUserSubmit}>
         <Form className="user-form">

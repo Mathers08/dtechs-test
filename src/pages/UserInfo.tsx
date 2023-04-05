@@ -17,24 +17,17 @@ const UserInfo = () => {
   const [isModalActive, setIsModalActive] = useState(false);
   const user = users && users.find(user => user.id === id);
 
-  const onModalClick = () => {
-    setIsModalActive(!isModalActive);
-    //console.log(user);
-    //console.log(user?.workBorders.map(wb => wb.name));
-
-  };
+  const onModalClick = () => setIsModalActive(!isModalActive)
   const onRemoveClick = () => {
     dispatch(removeUser(id));
     navigate('/');
     toast.success('Пользователь удален!');
   };
-
   const onUserSubmit = (values: any, { setSubmitting }: FormikHelpers<any>) => {
     setTimeout(() => {
       dispatch(editUser(values));
       navigate('/');
       toast.success('Информация обновлена!');
-
       setSubmitting(false);
     }, 500);
   };

@@ -2,7 +2,7 @@ import { CombinedState } from "@reduxjs/toolkit";
 
 export const loadState = () => {
   try {
-    const savedState = localStorage.getItem('notes');
+    const savedState = localStorage.getItem('users');
     if (savedState === null) return undefined;
     return JSON.parse(savedState);
   } catch (error) {
@@ -14,7 +14,7 @@ export const loadState = () => {
 export const saveState = (state: CombinedState<any>) => {
   try {
     const workingState = JSON.stringify(state);
-    localStorage.setItem('notes', workingState);
+    localStorage.setItem('users', workingState);
   } catch (error) {
     console.error(error);
   }

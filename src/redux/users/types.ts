@@ -17,7 +17,7 @@ export interface IWorkBorder {
 }
 
 export interface IUser {
-  id: string;
+  id: string | undefined;
   username: string;
   password: string;
   firstName: string;

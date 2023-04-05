@@ -28,15 +28,20 @@ svg {
   height: 35px;
 }
 
-/*
-.btn {
-  background-color: $white;
-  color: $bg-color;
-  border: 2px $white solid;
+.red-btn {
+  background-color: $bg-color;
+  color: $red;
+  border: 2px $red solid;
   padding: 10px 20px;
   border-radius: 20px;
+  transition: .2s all ease-in;
+  font-weight: 700;
+
+  &:hover {
+    background-color: $white;
+    color: $red;
+  }
 }
-*/
 
 .outline-btn {
   background-color: $bg-color;

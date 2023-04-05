@@ -1,16 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser, RoleEnum, UserState } from "./types";
+import { IUser, UserState } from "./types";
 
 const initialState: UserState = {
-  users: [{
-    id: "1",
-    username: "mathers08",
-    password: "admin",
-    firstName: "Black",
-    lastName: "Mathers",
-    roles: [RoleEnum.ANT],
-    workBorders: []
-  }]
+  users: [],
+  searchValue: ''
 };
 
 export const slice = createSlice({
@@ -20,11 +13,14 @@ export const slice = createSlice({
     addUser: (state, action: PayloadAction<IUser>) => {
       state.users.push(action.payload);
     },
-    removeUser: (state, action: PayloadAction<string>) => {
+    removeUser: (state, action: PayloadAction<string | undefined>) => {
       state.users = state.users.filter(user => user.id !== action.payload);
     },
     editUser: (state, action: PayloadAction<IUser>) => {
       state.users = state.users.map(user => user.id === action.payload.id ? action.payload : user);
+    },
+    setSearchValue: (state, action: PayloadAction<string>) => {
+      state.searchValue = action.payload;
     }
   }
 });
@@ -32,6 +28,7 @@ export const slice = createSlice({
 export const {
   addUser,
   removeUser,
-  editUser
+  editUser,
+  setSearchValue
 } = slice.actions;
 export default slice.reducer;

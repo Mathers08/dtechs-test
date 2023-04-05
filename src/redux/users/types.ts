@@ -28,4 +28,5 @@ export interface IUser {
 
 export interface UserState {
   users: IUser[];
+  searchValue: string;
 }

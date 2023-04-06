@@ -9,7 +9,7 @@ import { declination } from "../utils";
 const Home: FC = () => {
   const { users, searchValue } = useSelector(selectUsers);
   const filteredUsers =
-    users.filter(user => user.username.toLowerCase().includes(searchValue.toLowerCase()));
+    users.filter(user => user.username?.toLowerCase().includes(searchValue.toLowerCase()));
 
   const totalLength = filteredUsers.length;
   const declFind = declination(totalLength, ['Найдена', 'Найдены', 'Найдено']);

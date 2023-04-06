@@ -33,17 +33,32 @@
     margin-top: 25px;
     max-width: 60%;
 
-    input, select {
-      padding: 10px;
-      border-radius: 10px;
+    div {
+      input, select {
+        padding: 10px;
+        border-radius: 10px;
+        width: 100%;
 
-      &:focus {
+        &:focus {
+          outline: none;
+        }
 
+        .error-msg {
+          color: $red;
+        }
       }
     }
 
     .form-btn {
       margin-left: auto;
+    }
+
+    .field, .multiselect {
+      border: 5px solid $red;
+    }
+
+    .multiselect {
+      border-radius: 10px;
     }
   }
 

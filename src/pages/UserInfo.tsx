@@ -8,7 +8,8 @@ import { toast } from "react-toastify";
 import { useAppDispatch } from "../hooks";
 import { Modal } from "../components";
 import UserForm from "./UserForm";
-import { validation } from "../utils";
+import { validationSchema, validationUniqueUsername } from "../utils";
+import { IUser } from "../redux/users/types";
 
 const UserInfo = () => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ const UserInfo = () => {
   const dispatch = useAppDispatch();
   const [isModalActive, setIsModalActive] = useState(false);
   const user = users && users.find(user => user.id === id);
-  const initialValues = {
+  const initialValues: IUser = {
     id: user?.id,
     username: user?.username,
     password: user?.password,
@@ -33,9 +34,9 @@ const UserInfo = () => {
     navigate('/');
     toast.success('Пользователь удален!');
   };
-  const onUserSubmit = (values: any, { setSubmitting }: FormikHelpers<any>) => {
+  const onUserSubmit = (values: IUser, { setSubmitting }: FormikHelpers<IUser>) => {
     setTimeout(() => {
-      const isValid = validation(values);
+      const isValid = validationUniqueUsername(users, values);
       if (isValid) {
         dispatch(editUser(values));
         navigate('/');
@@ -70,11 +71,11 @@ const UserInfo = () => {
         </div>
         <div className="info-item">
           <p>Roles:</p>
-          <h4>{user?.roles.join(', ')}</h4>
+          <h4>{user?.roles?.join(', ')}</h4>
         </div>
         <div className="info-item">
           <p>WorkBorders:</p>
-          <h4>{user?.workBorders.join(', ')}</h4>
+          <h4>{user?.workBorders?.join(', ')}</h4>
         </div>
       </div>
       <div className="user-btns">
@@ -89,8 +90,10 @@ const UserInfo = () => {
           width: 550,
           height: 500,
         }}>
-          <Formik initialValues={initialValues} onSubmit={onUserSubmit}>
-            <UserForm/>
+          <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onUserSubmit}>
+            {({ errors, touched, setFieldValue }) => (
+              <UserForm errors={errors} touched={touched} setFieldValue={setFieldValue}/>
+            )}
           </Formik>
         </Modal>
       )}

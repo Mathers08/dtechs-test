@@ -16,8 +16,8 @@ export interface IWorkBorder {
   name: WorkBordersEnum;
 }
 
-export interface IUser {
-  id: string | undefined;
+export interface User {
+  id: string;
   username: string;
   password: string;
   firstName: string;
@@ -25,6 +25,8 @@ export interface IUser {
   roles: RoleEnum[];
   workBorders: IWorkBorder[];
 }
+
+export type IUser = Partial<User>;
 
 export interface UserState {
   users: IUser[];

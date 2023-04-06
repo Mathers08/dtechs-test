@@ -4,15 +4,9 @@ import { Link } from "react-router-dom";
 import { Highlighted } from '../utils';
 import { useSelector } from "react-redux";
 import { selectUsers } from "../redux/users/selectors";
+import { IUser } from "../redux/users/types";
 
-interface UserCardProps {
-  id: string | undefined;
-  username: string;
-  firstName: string;
-  lastName: string;
-}
-
-const UserCard: FC<UserCardProps> = ({ id, username, firstName, lastName }) => {
+const UserCard: FC<IUser> = ({ id, username, firstName, lastName }) => {
   const { searchValue } = useSelector(selectUsers);
 
   return (

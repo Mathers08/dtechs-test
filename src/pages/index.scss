@@ -42,10 +42,9 @@
         &:focus {
           outline: none;
         }
-
-        .error-msg {
-          color: $red;
-        }
+      }
+      .error-msg {
+        color: $red;
       }
     }
 
@@ -81,3 +80,8 @@
   }
 }
 
+@media (max-width: 280px) {
+  .wrapper {
+    margin: 0;
+  }
+}

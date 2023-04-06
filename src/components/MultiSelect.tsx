@@ -1,13 +1,5 @@
-import { FC } from "react";
 import Select from 'react-select';
 import { RoleEnum, WorkBordersEnum } from "../redux/users/types";
-
-interface MultiSelectProps {
-  field: any;
-  form: any;
-  options: any;
-  placeholder: any;
-}
 
 export const rolesList = [
   { value: RoleEnum.ANT, label: RoleEnum.ANT },
@@ -22,7 +14,7 @@ export const workBordersList = [
   { value: { id: '3', name: WorkBordersEnum.URUS_MARTAN }, label: WorkBordersEnum.URUS_MARTAN }
 ];
 
-const MultiSelect: FC<MultiSelectProps> = ({ field, form, options, placeholder = 'Select' }) => {
+const MultiSelect = ({ field, form, options, placeholder = 'Select' }: any) => {
   for (let i = 0; i < options.length; i++) {
     if (typeof options[i].value === 'object') {
       options[i].value = Object.values(options[i].value)[1];

@@ -1,35 +1,34 @@
 import React, { FC } from 'react';
-import { Field, Form, FormikErrors, FormikTouched, FormikValues } from "formik";
+import { Field, Form, FormikTouched, FormikValues } from "formik";
 import { rolesList, workBordersList } from "../components/MultiSelect";
 import { useLocation } from "react-router-dom";
 import { MultiSelect } from "../components";
 
 interface UserFormProps {
   errors: any;
-  touched: any;
-  setFieldValue: any;
+  touched: FormikTouched<FormikValues>;
+  setFieldValue: (name: string, value: string[]) => void;
 }
 
 const UserForm: FC<UserFormProps> = ({ errors, touched, setFieldValue }) => {
   const location = useLocation();
-  const error = errors.username;
 
   return (
     <Form className={`${location.pathname === '/user' ? 'user-form' : 'user-form user-form-modal'}`}>
       <div>
         <Field name="username" placeholder="username"/>
         {errors.username && touched.username &&
-          <div className='error-msg'>{errors.username}</div>}
+          <div className="error-msg">{errors.username}</div>}
       </div>
       <div>
         <Field type="password" name="password" placeholder="password"/>
         {errors.password && touched.password &&
-          <div className='error-msg'>{errors.password}</div>}
+          <div className="error-msg">{errors.password}</div>}
       </div>
       <div>
         <Field name="firstName" placeholder="first name"/>
         {errors.firstName && touched.firstName &&
-          <div className='error-msg'>{errors.firstName}</div>}
+          <div className="error-msg">{errors.firstName}</div>}
       </div>
       <div>
         <Field name="lastName" placeholder="last name"/>
@@ -48,7 +47,7 @@ const UserForm: FC<UserFormProps> = ({ errors, touched, setFieldValue }) => {
             );
           }}
         />
-        {errors.roles && touched.roles && <div className='error-msg'>{errors.roles}</div>}
+        {errors.roles && touched.roles && <div className="error-msg">{errors.roles}</div>}
       </div>
       <div>
         <Field
@@ -64,7 +63,7 @@ const UserForm: FC<UserFormProps> = ({ errors, touched, setFieldValue }) => {
             );
           }}
         />
-        {errors.workBorders && touched.workBorders && <div className='error-msg'>{errors.workBorders}</div>}
+        {errors.workBorders && touched.workBorders && <div className="error-msg">{errors.workBorders}</div>}
       </div>
       <button type="submit" className="outline-btn form-btn">
         {location.pathname === '/user' ? 'Добавить пользователя' : 'Сохранить изменения'}

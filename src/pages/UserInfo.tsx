@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import { useSelector } from "react-redux";
 import { selectUsers } from "../redux/users/selectors";
 import { editUser, removeUser } from "../redux/users/slice";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../hooks";
-import { MultiSelect, Modal } from "../components";
-import { rolesList, workBordersList } from "../components/MultiSelect";
+import { Modal } from "../components";
+import UserForm from "./UserForm";
 
 const UserInfo = () => {
   const { id } = useParams();
@@ -16,8 +16,17 @@ const UserInfo = () => {
   const dispatch = useAppDispatch();
   const [isModalActive, setIsModalActive] = useState(false);
   const user = users && users.find(user => user.id === id);
+  const initialValues = {
+    id: user?.id,
+    username: user?.username,
+    password: user?.password,
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    roles: user?.roles,
+    workBorders: user?.workBorders
+  };
 
-  const onModalClick = () => setIsModalActive(!isModalActive)
+  const onModalClick = () => setIsModalActive(!isModalActive);
   const onRemoveClick = () => {
     dispatch(removeUser(id));
     navigate('/');
@@ -76,36 +85,8 @@ const UserInfo = () => {
           width: 550,
           height: 500,
         }}>
-          <Formik initialValues={{
-            id: user?.id,
-            username: user?.username,
-            password: user?.password,
-            firstName: user?.firstName,
-            lastName: user?.lastName,
-            roles: user?.roles,
-            workBorders: user?.workBorders
-          }} onSubmit={onUserSubmit}>
-            <Form className="user-form" style={{ maxWidth: '100%' }}>
-              <Field id="username" name="username" placeholder="username"/>
-              <Field id="password" type="password" name="password" placeholder="password"/>
-              <Field id="firstName" name="firstName" placeholder="first name"/>
-              <Field id="lastName" name="lastName" placeholder="last name"/>
-              <Field
-                name="roles"
-                id="roles"
-                placeholder="roles"
-                component={MultiSelect}
-                options={rolesList}
-              />
-              <Field
-                name="workBorders"
-                id="workBorders"
-                placeholder="work borders"
-                component={MultiSelect}
-                options={workBordersList}
-              />
-              <button type="submit" className="outline-btn form-btn">Сохранить изменения</button>
-            </Form>
+          <Formik initialValues={initialValues} onSubmit={onUserSubmit}>
+            <UserForm/>
           </Formik>
         </Modal>
       )}

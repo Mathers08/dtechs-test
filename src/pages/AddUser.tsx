@@ -1,21 +1,27 @@
 import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import './index.scss';
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import { RoleEnum } from "../redux/users/types";
-import { MultiSelect } from "../components";
 import { useAppDispatch } from "../hooks";
 import { addUser } from "../redux/users/slice";
 import { toast } from 'react-toastify';
-import { rolesList, workBordersList } from "../components/MultiSelect";
 import { v4 as uuidv4 } from 'uuid';
-import { useSelector } from "react-redux";
-import { selectUsers } from "../redux/users/selectors";
+import UserForm from "./UserForm";
 
 const AddUser = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const initialValues = {
+    id: uuidv4(),
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    roles: [RoleEnum.ANT],
+    workBorders: []
+  };
   const validation = (values: any) => {
     if (values.username.length < 3) toast.error('Поле username должно иметь не менее 3 символов');
     if (values.password.length < 4) toast.error('Поле password должно иметь не менее 4 символов');
@@ -43,36 +49,8 @@ const AddUser = () => {
       <Link to="/">
         <button className="outline-btn">Вернуться к списку</button>
       </Link>
-      <Formik initialValues={{
-          id: uuidv4(),
-          username: '',
-          password: '',
-          firstName: '',
-          lastName: '',
-          roles: [RoleEnum.ANT],
-          workBorders: []
-        }} onSubmit={onUserSubmit}>
-        <Form className="user-form">
-          <Field id="username" name="username" placeholder="username"/>
-          <Field id="password" type="password" name="password" placeholder="password"/>
-          <Field id="firstName" name="firstName" placeholder="first name"/>
-          <Field id="lastName" name="lastName" placeholder="last name"/>
-          <Field
-            name="roles"
-            id="roles"
-            placeholder="roles"
-            component={MultiSelect}
-            options={rolesList}
-          />
-          <Field
-            name="workBorders"
-            id="workBorders"
-            placeholder="work borders"
-            component={MultiSelect}
-            options={workBordersList}
-          />
-          <button type="submit" className="outline-btn form-btn">Создать пользователя</button>
-        </Form>
+      <Formik initialValues={initialValues} onSubmit={onUserSubmit}>
+        <UserForm/>
       </Formik>
     </div>
   );

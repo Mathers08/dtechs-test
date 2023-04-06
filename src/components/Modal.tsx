@@ -16,15 +16,16 @@ interface ModalProps {
 
 const Modal: FC<ModalProps> = ({ props, children }) => {
   return (
-    <div className={props.active ? 'modal active' : 'modal'} onClick={() => props.setActive(false)}>
+    <div role="presentation" className={props.active ? 'modal active' : 'modal'} onClick={() => props.setActive(false)}>
       <div
+        role="presentation"
         style={{
           background: props.color ? props.color : '#fff',
           width: props.width,
-          height: props.height
+          height: props.height,
         }}
         className={props.active ? 'modal__content active' : 'modal__content'}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         {children}
       </div>

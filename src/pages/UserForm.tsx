@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Field, Form, FormikTouched, FormikValues } from "formik";
-import { rolesList, workBordersList } from "../components/MultiSelect";
-import { useLocation } from "react-router-dom";
-import { MultiSelect } from "../components";
+import { Field, Form, FormikTouched, FormikValues } from 'formik';
+import { useLocation } from 'react-router-dom';
+import { rolesList, workBordersList } from '../components/MultiSelect';
+import { MultiSelect } from '../components';
 
 interface UserFormProps {
   errors: any;
@@ -16,22 +16,22 @@ const UserForm: FC<UserFormProps> = ({ errors, touched, setFieldValue }) => {
   return (
     <Form className={`${location.pathname === '/user' ? 'user-form' : 'user-form user-form-modal'}`}>
       <div>
-        <Field name="username" placeholder="username"/>
-        {errors.username && touched.username &&
-          <div className="error-msg">{errors.username}</div>}
+        <Field name="username" placeholder="username" />
+        {errors.username && touched.username
+          && <div className="error-msg">{errors.username}</div>}
       </div>
       <div>
-        <Field type="password" name="password" placeholder="password"/>
-        {errors.password && touched.password &&
-          <div className="error-msg">{errors.password}</div>}
+        <Field type="password" name="password" placeholder="password" />
+        {errors.password && touched.password
+          && <div className="error-msg">{errors.password}</div>}
       </div>
       <div>
-        <Field name="firstName" placeholder="first name"/>
-        {errors.firstName && touched.firstName &&
-          <div className="error-msg">{errors.firstName}</div>}
+        <Field name="firstName" placeholder="first name" />
+        {errors.firstName && touched.firstName
+          && <div className="error-msg">{errors.firstName}</div>}
       </div>
       <div>
-        <Field name="lastName" placeholder="last name"/>
+        <Field name="lastName" placeholder="last name" />
       </div>
       <div>
         <Field
@@ -43,7 +43,7 @@ const UserForm: FC<UserFormProps> = ({ errors, touched, setFieldValue }) => {
           onChange={(value: any) => {
             setFieldValue(
               'roles',
-              value ? value.map((option: any) => option.value) : []
+              value ? value.map((option: any) => option.value) : [],
             );
           }}
         />
@@ -59,7 +59,7 @@ const UserForm: FC<UserFormProps> = ({ errors, touched, setFieldValue }) => {
           onChange={(value: any) => {
             setFieldValue(
               'workBorders',
-              value ? value.map((option: any) => option.value) : []
+              value ? value.map((option: any) => option.value) : [],
             );
           }}
         />

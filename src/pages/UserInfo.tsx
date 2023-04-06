@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Formik, FormikHelpers } from "formik";
-import { useSelector } from "react-redux";
-import { selectUsers } from "../redux/users/selectors";
-import { editUser, removeUser } from "../redux/users/slice";
-import { toast } from "react-toastify";
-import { useAppDispatch } from "../hooks";
-import { Modal } from "../components";
-import UserForm from "./UserForm";
-import { validationSchema, validationUniqueUsername } from "../utils";
-import { IUser } from "../redux/users/types";
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Formik, FormikHelpers } from 'formik';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { selectUsers } from '../redux/users/selectors';
+import { editUser, removeUser } from '../redux/users/slice';
+import { useAppDispatch } from '../hooks';
+import { Modal } from '../components';
+import UserForm from './UserForm';
+import { validationSchema, validationUniqueUsername } from '../utils';
+import { IUser } from '../redux/users/types';
 
 const UserInfo = () => {
   const { id } = useParams();
@@ -17,7 +17,7 @@ const UserInfo = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isModalActive, setIsModalActive] = useState(false);
-  const user = users && users.find(user => user.id === id);
+  const user = users && users.find((u) => u.id === id);
   const initialValues: IUser = {
     id: user?.id,
     username: user?.username,
@@ -25,7 +25,7 @@ const UserInfo = () => {
     firstName: user?.firstName,
     lastName: user?.lastName,
     roles: user?.roles,
-    workBorders: user?.workBorders
+    workBorders: user?.workBorders,
   };
 
   const onModalClick = () => setIsModalActive(!isModalActive);
@@ -89,10 +89,11 @@ const UserInfo = () => {
           color: '#000',
           width: 550,
           height: 500,
-        }}>
+        }}
+        >
           <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onUserSubmit}>
             {({ errors, touched, setFieldValue }) => (
-              <UserForm errors={errors} touched={touched} setFieldValue={setFieldValue}/>
+              <UserForm errors={errors} touched={touched} setFieldValue={setFieldValue} />
             )}
           </Formik>
         </Modal>

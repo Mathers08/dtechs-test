@@ -1,4 +1,4 @@
-import { CombinedState } from "@reduxjs/toolkit";
+import { CombinedState } from '@reduxjs/toolkit';
 
 export const loadState = () => {
   try {

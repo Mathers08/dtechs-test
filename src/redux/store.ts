@@ -1,12 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
+import { loadState, saveState } from '../utils';
 import users from './users/slice';
-import { loadState, saveState } from "../utils";
 
 export const setupStore = () => configureStore({
   reducer: {
-    users
+    users,
   },
-  preloadedState: loadState()
+  preloadedState: loadState(),
 });
 
 export const store = setupStore();

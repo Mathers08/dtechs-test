@@ -1,16 +1,16 @@
 import React from 'react';
 import './index.scss';
-import { Link, useNavigate } from "react-router-dom";
-import { Formik, FormikHelpers } from "formik";
-import { IUser, RoleEnum } from "../redux/users/types";
-import { useAppDispatch } from "../hooks";
-import { addUser } from "../redux/users/slice";
+import { Link, useNavigate } from 'react-router-dom';
+import { Formik, FormikHelpers } from 'formik';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
-import { validationSchema, validationUniqueUsername } from "../utils";
-import { useSelector } from "react-redux";
-import { selectUsers } from "../redux/users/selectors";
-import UserForm from "./UserForm";
+import { useSelector } from 'react-redux';
+import { IUser, RoleEnum } from '../redux/users/types';
+import { useAppDispatch } from '../hooks';
+import { addUser } from '../redux/users/slice';
+import { validationSchema, validationUniqueUsername } from '../utils';
+import { selectUsers } from '../redux/users/selectors';
+import UserForm from './UserForm';
 
 const AddUser = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ const AddUser = () => {
     firstName: '',
     lastName: '',
     roles: [RoleEnum.ANT],
-    workBorders: []
+    workBorders: [],
   };
 
   const onUserSubmit = (values: IUser, { setSubmitting }: FormikHelpers<IUser>) => {
@@ -44,7 +44,7 @@ const AddUser = () => {
       </Link>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onUserSubmit}>
         {({ errors, touched, setFieldValue }) => (
-          <UserForm errors={errors} touched={touched} setFieldValue={setFieldValue}/>
+          <UserForm errors={errors} touched={touched} setFieldValue={setFieldValue} />
         )}
       </Formik>
     </div>

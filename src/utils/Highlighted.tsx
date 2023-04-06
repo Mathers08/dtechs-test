@@ -1,10 +1,15 @@
-import React from "react";
+import React, { FC } from 'react';
 
-const Highlighted = ({ text = '', highlight = "" }) => {
+interface HighlightedProps {
+  text?: string;
+  highlight?: string;
+}
+
+const Highlighted: FC<HighlightedProps> = ({ text = '', highlight = '' }) => {
   if (!highlight.trim()) {
     return <span>{text}</span>;
   }
-  const regex = new RegExp(`(${highlight})`, "gi");
+  const regex = new RegExp(`(${highlight})`, 'gi');
   const parts = text.split(regex);
 
   return (

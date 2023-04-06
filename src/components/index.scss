@@ -38,7 +38,7 @@
     p {
       margin: 0;
       font-size: 20px;
-      width: 250px;
+      min-width: 250px;
     }
     h4 {
       margin: 0;
@@ -146,5 +146,26 @@
   &__icon-close {
     position: absolute;
     right: 0;
+  }
+}
+
+@media (max-width: 780px) {
+  .search__input {
+    width: auto;
+  }
+}
+
+@media (max-width: 636px) {
+  .user-info {
+    .info-item {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+}
+
+@media (max-width: 535px) {
+  .user-btns {
+    flex-direction: column;
   }
 }

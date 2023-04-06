@@ -51,3 +51,18 @@
     max-width: 100%;
   }
 }
+
+@media (max-width: 1200px) {
+  .wrapper {
+    margin: 0 50px;
+  }
+}
+
+@media (max-width: 676px) {
+  .wrapper {
+    .user-form {
+      max-width: 100%;
+    }
+  }
+}
+

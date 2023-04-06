@@ -2,31 +2,37 @@ import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import './index.scss';
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import { IUser, RoleEnum, WorkBordersEnum } from "../redux/users/types";
-import { MultiSelect } from "../component";
+import { RoleEnum } from "../redux/users/types";
+import { MultiSelect } from "../components";
 import { useAppDispatch } from "../hooks";
 import { addUser } from "../redux/users/slice";
+import { toast } from 'react-toastify';
+import { rolesList, workBordersList } from "../components/MultiSelect";
+import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from "react-redux";
+import { selectUsers } from "../redux/users/selectors";
 
 const AddUser = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const optionList = [
-    { value: RoleEnum.ANT, label: RoleEnum.ANT },
-    { value: RoleEnum.ANT_MANAGER, label: RoleEnum.ANT_MANAGER },
-    { value: RoleEnum.ANT_OFFICER, label: RoleEnum.ANT_OFFICER },
-    { value: RoleEnum.DEVELOPER, label: RoleEnum.DEVELOPER }
-  ];
-  const workBordersList = [
-    { value: { id: '1', name: WorkBordersEnum.BEGLATOY }, label: WorkBordersEnum.BEGLATOY },
-    { value: { id: '2', name: WorkBordersEnum.SHALY }, label: WorkBordersEnum.SHALY },
-    { value: { id: '3', name: WorkBordersEnum.URUS_MARTAN }, label: WorkBordersEnum.URUS_MARTAN }
-  ];
 
-  const onUserSubmit = (values: IUser, { setSubmitting }: FormikHelpers<IUser>) => {
+  const validation = (values: any) => {
+    if (values.username.length < 3) toast.error('Поле username должно иметь не менее 3 символов');
+    if (values.password.length < 4) toast.error('Поле password должно иметь не менее 4 символов');
+    if (values.firstName.length < 2) toast.error('Поле first name должно иметь не менее 2 символов');
+    if (values.roles.length < 1) toast.error('Поле roles должно иметь не менее 1 элемента');
+    if (values.workBorders.length < 1) toast.error('Поле work borders должно иметь не менее 1 элемента');
+  };
+
+  const onUserSubmit = (values: any, { setSubmitting }: FormikHelpers<any>) => {
     setTimeout(() => {
-      console.log(values);
+
+      validation(values);
+
       dispatch(addUser(values));
       navigate('/');
+      toast.success('Пользователь добавлен!');
+
       setSubmitting(false);
     }, 500);
   };
@@ -37,33 +43,31 @@ const AddUser = () => {
       <Link to="/">
         <button className="outline-btn">Вернуться к списку</button>
       </Link>
-      <Formik
-        initialValues={{
-          id: Math.random().toString(),
+      <Formik initialValues={{
+          id: uuidv4(),
           username: '',
           password: '',
           firstName: '',
           lastName: '',
           roles: [RoleEnum.ANT],
-          workBorders: [{ id: '1', name: WorkBordersEnum.BEGLATOY }]
-        }}
-        onSubmit={onUserSubmit}>
+          workBorders: []
+        }} onSubmit={onUserSubmit}>
         <Form className="user-form">
           <Field id="username" name="username" placeholder="username"/>
-          <Field id="password" name="password" placeholder="password"/>
+          <Field id="password" type="password" name="password" placeholder="password"/>
           <Field id="firstName" name="firstName" placeholder="first name"/>
           <Field id="lastName" name="lastName" placeholder="last name"/>
           <Field
             name="roles"
             id="roles"
-            placeholder="Roles"
+            placeholder="roles"
             component={MultiSelect}
-            options={optionList}
+            options={rolesList}
           />
           <Field
             name="workBorders"
             id="workBorders"
-            placeholder="WorkBorders"
+            placeholder="work borders"
             component={MultiSelect}
             options={workBordersList}
           />

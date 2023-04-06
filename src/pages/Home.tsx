@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './index.scss';
-import { Search, UserCard } from "../component";
+import { Search, UserCard } from "../components";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUsers } from "../redux/users/selectors";

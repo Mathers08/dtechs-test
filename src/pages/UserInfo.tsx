@@ -6,8 +6,8 @@ import { selectUsers } from "../redux/users/selectors";
 import { editUser, removeUser } from "../redux/users/slice";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../hooks";
-import { MultiSelect, Modal } from "../component";
-import { rolesList, workBordersList } from "../component/MultiSelect";
+import { MultiSelect, Modal } from "../components";
+import { rolesList, workBordersList } from "../components/MultiSelect";
 
 const UserInfo = () => {
   const { id } = useParams();
@@ -77,7 +77,7 @@ const UserInfo = () => {
           height: 500,
         }}>
           <Formik initialValues={{
-            id: Math.random().toString(),
+            id: user?.id,
             username: user?.username,
             password: user?.password,
             firstName: user?.firstName,

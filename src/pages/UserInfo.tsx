@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useAppDispatch } from "../hooks";
 import { Modal } from "../components";
 import UserForm from "./UserForm";
+import { validation } from "../utils";
 
 const UserInfo = () => {
   const { id } = useParams();
@@ -34,9 +35,12 @@ const UserInfo = () => {
   };
   const onUserSubmit = (values: any, { setSubmitting }: FormikHelpers<any>) => {
     setTimeout(() => {
-      dispatch(editUser(values));
-      navigate('/');
-      toast.success('Информация обновлена!');
+      const isValid = validation(values);
+      if (isValid) {
+        dispatch(editUser(values));
+        navigate('/');
+        toast.success('Информация обновлена!');
+      }
       setSubmitting(false);
     }, 500);
   };
